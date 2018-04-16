@@ -1,0 +1,43 @@
+%YAML 1.2
+---
+
+# A Sublime Text syntax highlighting for libraryparser files!
+
+file_extensions:
+  - lf
+scope: source.lf
+contexts:
+  main:
+    # Comments
+    - match: '!!'
+      scope: punctuation.definition.comment.lf
+      push: line_comment
+
+    # Titles
+    - match: '^(.*?)(?=\:)'
+      scope: variable.function.lf
+
+    # Keywords
+    - match: '(out|due)'
+      scope: storage.modifier.lf
+
+    # Equals operator
+    - match: '\='
+
+    # Values
+    - match: '(?<=\=)(.*?)(?=\;)'
+      scope: storage.type.lf
+
+    # Semicolon
+    - match: '(\:|\;)'
+      scope: entity.name
+
+
+
+  line_comment:
+    - meta_scope: comment.line
+    - match: $
+      pop: true
+
+  prototype:
+  - include: comments
