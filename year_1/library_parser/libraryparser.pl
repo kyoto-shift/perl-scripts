@@ -2,11 +2,15 @@
 
 # !!!!!!!!!!!!!!! WHAT IS LIBRARYPARSER? !!!!!!!!!!!!!!!
 
-# I love lexers and parsers, so I thought I'd try making
-# a basic one in Perl. However, this isn't technically a
-# parser, as it doesn't Tokenize  or  create  any  data-
-# structure from its input. However, it does technically
-# parse data, just not in the traditional (smarter) way.
+#  I love lexers and parsers, so I tried implementing a
+#                  simple one in Perl.
+#     However, since this is just matching character
+#    sequences with Regex, it's not a "real" parser.
+
+#      It does still parse data... just not in the
+#               traditional (smarter) way.
+
+#          I'll still call it a parse though :D
 
 # !!!!!!!!!!!!!!! WHAT IS LIBRARYPARSER? !!!!!!!!!!!!!!!
 

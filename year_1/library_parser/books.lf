@@ -1,3 +1,5 @@
+!! The parser ignores whitespace, so go crazy with the formatting
+
                               !!     Programming
                      Mastering Regex: out=true; due=2018-04-29;
                  Python Crash Course: out=true; due=2018-05-07;

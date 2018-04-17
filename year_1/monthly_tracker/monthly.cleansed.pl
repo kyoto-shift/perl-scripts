@@ -4,8 +4,8 @@
 
 # This version has been "cleaned" from the
 # version I actually use. My personal info
-# has been removed,  and it's also loosely 
-# maintained.
+# has been removed,  and it's also loosely
+#               maintained.
 
 # !!!!!!!!!!!!!! DISCLAIMER !!!!!!!!!!!!!!
 
