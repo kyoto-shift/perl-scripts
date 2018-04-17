@@ -1,7 +1,7 @@
 %YAML 1.2
 ---
 
-# A Sublime Text syntax highlighting for libraryparser files!
+# Sublime Text syntax highlighting for libraryparser files!
 
 file_extensions:
   - lf

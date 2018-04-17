@@ -10,7 +10,7 @@
 #      It does still parse data... just not in the
 #               traditional (smarter) way.
 
-#          I'll still call it a parse though :D
+#         I'll still call it a parser though :D
 
 # !!!!!!!!!!!!!!! WHAT IS LIBRARYPARSER? !!!!!!!!!!!!!!!
 
