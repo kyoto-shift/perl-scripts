@@ -1,11 +1,11 @@
-!! Programming
-Mastering Regex: 		out=true; due=2018-04-29;
-Python Crash Course: 	out=true; due=2018-05-07;
+                              !!     Programming
+                     Mastering Regex: out=true; due=2018-04-29;
+                 Python Crash Course: out=true; due=2018-05-07;
 
-!! Non-fiction
-Ordinary Men: out=true; due=2018-05-07;
+                              !!     Non-fiction
+                        Ordinary Men: out=true; due=2018-05-07;
 
-!! Not checked out
-Designing Interfaces: 					out=false;
-Chicago Manual of Style 17th Edition: 	out=false;
-PHP, MySQL, JavaScript, CSS & HTML5: 	out=false;
+                              !! Not checked out
+                Designing Interfaces: out=false;
+Chicago Manual of Style 17th Edition: out=false;
+ PHP, MySQL, JavaScript, CSS & HTML5: out=false;

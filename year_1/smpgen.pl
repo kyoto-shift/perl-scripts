@@ -2,13 +2,14 @@
 
 # !!!!!!!!!!!!!!! WHAT IS SMPGEN? !!!!!!!!!!!!!!!
 
-# Smpgen generates somewhat secure passwords 
-# using 6 different "templates." It also uses a 
-# mini "parser" to make template creation easier.
+#   Smpgen generates somewhat secure passwords
+#  using 6 different "templates." It also uses a
+# simple list "engine" to make template creation
+#          a bit easier. Yay buzzwords!
 
-# This was also the first Perl script I wrote, 
-# so it isn't very well written and doesn't even 
-# use strict mode or check for duplicates.
+#  This was also the first Perl script I wrote,
+# so it isn't very well written and doesn't even
+#    use strict mode or check for duplicates.
 
 # !!!!!!!!!!!!!!! WHAT IS SMPGEN? !!!!!!!!!!!!!!!
 

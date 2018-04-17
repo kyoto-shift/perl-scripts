@@ -2,7 +2,7 @@
 
 # !!!!!!!!!!!!!!! WHAT IS CRIT? !!!!!!!!!!!!!!!
 
-# Crit adds a copyright tag to any file.
+#    Crit adds a copyright tag to any file.
 
 # !!!!!!!!!!!!!!! WHAT IS CRIT? !!!!!!!!!!!!!!!
 

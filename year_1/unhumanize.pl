@@ -2,10 +2,10 @@
 
 # !!!!!!!!!!!!!!! WHAT IS UNHUMANIZE? !!!!!!!!!!!!!!!
 
-# Unhumanize obfuscates strings in Perl files while 
-# keeping the output format intact. However, it's a 
-# little broken right now... so it doesn't fully do 
-# that yet.
+#  Unhumanize obfuscates strings in Perl files while
+#  keeping the output format intact. However, it's a
+#  little broken right now... so it doesn't fully do
+#                      that yet.
 
 # !!!!!!!!!!!!!!! WHAT IS UNHUMANIZE? !!!!!!!!!!!!!!!
 

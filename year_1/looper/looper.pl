@@ -6,14 +6,14 @@ use File::Path 'rmtree';
 
 # !!!!!!!!!!!!!!! WHAT IS LOOPER? !!!!!!!!!!!!!!!
 
-# Looper loops through archiving and extracting 
-# folders/archives. To use an existing folder, 
+#  Looper loops through archiving and extracting
+#  folders/archives. To use an existing folder,
 # simply add an underscore(_) to the beginning of
-# its name, then run looper with the folder name 
+# its name, then run looper with the folder name
 # (excluding the underscore). It'll then create a
-# dotfile(.foldername) and delete the directory. 
-# To convert back to a directory, run the same 
-# command. This is a completed "loop."
+# dotfile(.foldername) and delete the directory.
+#  To convert back to a directory, run the same
+#      command. This is a completed "loop."
 
 # !!!!!!!!!!!!!!! WHAT IS LOOPER? !!!!!!!!!!!!!!!
 

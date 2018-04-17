@@ -2,7 +2,7 @@
 
 # !!!!!!!!!!!!!!! WHAT IS LIBRARYPARSER? !!!!!!!!!!!!!!!
 
-# I love lexers and parsers, so I thought I'd try making 
+# I love lexers and parsers, so I thought I'd try making
 # a basic one in Perl. However, this isn't technically a
 # parser, as it doesn't Tokenize  or  create  any  data-
 # structure from its input. However, it does technically
@@ -63,7 +63,7 @@ while (<$file>) {
     chomp($_);
     our $gen_error = "Fatal: Failed to parse '$_' at line $.!\n";
 
-    if    ( $_ =~ /^($cm)/ ) { }                   # if comment, do nothing
+    if    ( $_ =~ /($cm)/ ) { }                    # if comment, do nothing
     elsif ( $_ =~ /^$ws*$/ ) { }                   # if empty line, do nothing
     elsif ( $_ !~ /($colon.*)?.*$eq.+($sc)/ ) {    # if not sequence, exit
         print $gen_error and exit;
@@ -76,6 +76,9 @@ close $file;
 
 # =============== DATA HANDLING ===============
 foreach my $line (@file_lines) {
+    $line =~ s/^\s+//;
+    $line =~ s/\s+$//;
+
     my @book_title  = $line =~ m/.+?(?=$colon)/g;
     my @book_status = $line =~ m/$colon(.*)/g;
     my ($new_time)  = "@book_status" =~ /($date_seq)/;
@@ -95,6 +98,7 @@ foreach my $line (@file_lines) {
         my $cmp_date = Date::Simple->new($new_time);
         # compare that date to today's date
         my $diff = $cmp_date - today();
+
         if ( $diff < 0 ) {
             $diff = abs($diff);
             print "@book_title was due $diff days ago!\n";

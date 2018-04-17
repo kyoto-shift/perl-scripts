@@ -3,8 +3,8 @@
 # !!!!!!!!!!!!!!! WHAT IS BITTER? !!!!!!!!!!!!!!!
 
 # Bitter saves code snippets (known as "bits") of
-# your code. Simply specify the start and end 
-# lines and it'll do the rest!
+#   your code. Simply specify the start and end
+#          lines and it'll do the rest!
 
 # !!!!!!!!!!!!!!! WHAT IS BITTER? !!!!!!!!!!!!!!!
 
