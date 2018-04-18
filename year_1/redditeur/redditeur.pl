@@ -23,7 +23,7 @@ use WWW::Mechanize ();
 
 # =============== PKG INFO ===============
 my $pkg_name = "Redditeur";
-my $pkg_version = "1.5";
+my $pkg_version = "1.7";
 my $pkg_flavor = "(folder full of \"memes\")";
 
 # =============== INIT VARS ===============
@@ -32,6 +32,7 @@ my $homepage;
 my $path;
 my $nsfw;
 my $help;
+my $verified = 0;
 my $mech = WWW::Mechanize->new(
     autocheck         => 1,
     protocols_allowed => [ 'http', 'https' ],
@@ -90,11 +91,12 @@ sub _start {
         $mech->get($homepage);
     }
 
-    if ( $nsfw ) {
+    if ( $nsfw && $verified == 0) {
         print "Status:  /r/$sub specified as NSFW! Checking...\n";
         if ($mech->title !~ /over 18\?/i) {
             die("Error:  Are you sure /r/$sub is NSFW?\n");
         } else {   
+            $verified = 1;
             $mech->click_button(number => 2);
         }
     } else {
