@@ -23,11 +23,11 @@ use WWW::Mechanize ();
 
 # =============== PKG INFO ===============
 my $pkg_name = "Redditeur";
-my $pkg_version = "1.7";
+my $pkg_version = "1.8";
 my $pkg_flavor = "(folder full of \"memes\")";
 
 # =============== INIT VARS ===============
-my $sub = "all";
+my $sub = "aww";
 my $homepage;
 my $path;
 my $nsfw;
@@ -36,6 +36,8 @@ my $verified = 0;
 my $mech = WWW::Mechanize->new(
     autocheck         => 1,
     protocols_allowed => [ 'http', 'https' ],
+    onerror => undef,
+    stact_depth => 1,
 );
 
 # =============== OPTIONS ===============
@@ -144,9 +146,12 @@ sub _download_gfycat {
         else {
             print "Downloading:  $file!\n";
             $mech->get( $download, ":content_file" => "$path/$file" );
+            if ($mech->status == 403) {
+                print "Status: $download is unavailable! Skipping...\n";
+                next;
+            }
         }
     }
 }
-
 
 _start();
