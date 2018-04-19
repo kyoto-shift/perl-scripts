@@ -22,66 +22,65 @@ use Getopt::Long;
 use WWW::Mechanize ();
 
 # =============== PKG INFO ===============
-my $pkg_name = "Redditeur";
-my $pkg_version = "1.8";
-my $pkg_flavor = "(folder full of \"memes\")";
+my $pkg_name    = "Redditeur";
+my $pkg_version = "1.9";
+my $pkg_flavor  = "i use arch btw";
 
 # =============== INIT VARS ===============
 my $sub = "aww";
 my $homepage;
 my $path;
-my $nsfw;
 my $help;
 my $verified = 0;
+my $icon     = "*";
+
 my $mech = WWW::Mechanize->new(
     autocheck         => 1,
     protocols_allowed => [ 'http', 'https' ],
-    onerror => undef,
-    stact_depth => 1,
+    onerror           => undef,
+    stact_depth       => 1,
 );
 
 # =============== OPTIONS ===============
-GetOptions (
-        "sub|s=s" => \$sub,
-        'dir|directory|d=s' => \$path,
-        'nsfw|n' => \$nsfw,
-        'help|h' => \$help,
-    ) or die ($help);
+GetOptions(
+    "sub|s=s"           => \$sub,
+    'dir|directory|d=s' => \$path,
+    'help|h'            => \$help,
+) or die($help);
 
-unless ( $path ) {
-    $path = "./_$sub"; # reassign path variable to create new folder
+unless ($path) {
+    $path = "./_$sub";    # reassign path variable to create new folder
 }
 
-if ( $help ) {
-die <<HELP
+if ($help) {
+    die <<HELP
 
-    $pkg_name $pkg_version $pkg_flavor
+    $pkg_name $pkg_version ($pkg_flavor)
 
     Downloads every available Gfycat link from any subreddit!
 
-    Usage: $0 [-sdnh] [-s subreddit] [-n if_nsfw] [-d directory]
+    Usage: $0 [-sdh] [-s subreddit] [-d directory]
     
         --sub, -s [subreddit]
             Which subreddit to download from.
         --directory, --dir, -d [directory]
             Where to download to.
-        --nsfw, -n
-            If the subreddit is Not Safe For Work.
         --help, -h
             Displays this cool shit.
 
 HELP
-;
+        ;
 }
 
-if ( -d "$path" ) { } # check if our path exists, if not make one
+if ( -d "$path" ) { }    # check if our path exists, if not make one
 else {
     mkdir($path);
-    print "Status: '$path' doesn't exist! Creating...\n";
+    print "Status:\t'$path' doesn't exist! Creating...\n";
 }
 
 # =============== MAIN LOGIC ===============
 sub _start {
+
     # if we don't have a url argument, use first page of sub (first invocation)
     if ( !$_[0] ) {
         $homepage = "https://www.reddit.com/r/$sub";
@@ -93,22 +92,22 @@ sub _start {
         $mech->get($homepage);
     }
 
-    if ( $nsfw && $verified == 0) {
-        print "Status:  /r/$sub specified as NSFW! Checking...\n";
-        if ($mech->title !~ /over 18\?/i) {
-            die("Error:  Are you sure /r/$sub is NSFW?\n");
-        } else {   
-            $verified = 1;
-            $mech->click_button(number => 2);
-        }
-    } else {
-        if ( $mech->title =~ /over 18\?/i ) {
-            die("Error:  /r/$sub is NSFW. Please specify that with '-n'!\n");
-        }
+    if ( $mech->title =~ /over 18\?/i ) {
+        $icon     = ";)";
+        $verified = 1;
+        $mech->click_button( number => 2 );
     }
 
-    print "*\nStarting at $homepage\n*\n";
+    # found bug where links won't be found even if they're on the page
+    # only happens when starting and stopping the script in quick succession
+
+    print "\n$icon Starting at $homepage $icon\n\n";
     my @links = $mech->find_all_links( class_regex => qr/title/ );
+
+    if ( scalar @links == 0 ) {
+        die
+            "Status: No posts found! Try restarting Redditeur if this is an error.\n";
+    }
 
     foreach my $link (@links) {
         my $url = $link->url_abs;
@@ -116,13 +115,19 @@ sub _start {
             _download_gfycat($url);
         }
     }
-    print "Status: Page complete! Redirecting...\n";
+
+    print "Status:\tPage complete! Redirecting...\n";
+    undef @links;
     _newpage();
 }
 
 sub _newpage {
     $mech->get($homepage);
-    $mech->follow_link( url_regex => qr/($sub\/\?count\=[0-9].+?[&]after)/i );
+
+    die("\n$icon Search complete! (No more posts found) $icon\n\n")
+        unless $mech->follow_link(
+        url_regex => qr/($sub\/\?count\=[0-9].+?[&]after)/i );
+
     my $newpage = $mech->uri;
     _start($newpage);
 }
@@ -140,14 +145,14 @@ sub _download_gfycat {
         $file =~ s[^.+\/][];
 
         if ( -e "$path/$file" ) {
-            print "Status: '$file' exists! Skipping...\n";
+            print "Status:\t'$file' exists! Skipping...\n";
             next;
         }
         else {
-            print "Downloading:  $file!\n";
+            print "Downloading: '$file'!\n";
             $mech->get( $download, ":content_file" => "$path/$file" );
-            if ($mech->status == 403) {
-                print "Status: $download is unavailable! Skipping...\n";
+            if ( $mech->status != 200 ) {
+                print "Status:\t'$file' is unavailable! Skipping...\n";
                 next;
             }
         }

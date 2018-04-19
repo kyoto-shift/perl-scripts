@@ -1,0 +1,13 @@
+Key: + [Addition], > [Fix], - [Removal], ! [Issue]
+
+* Redditeur 1.9 - i use arch btw *
+    + Added a secret thing. (i was desperate to not just do bug fixes)
+    > Fixed infinitely refreshing last page bug
+    > Various QOL and styling changes
+    - Removed NSFW flag. Redditeur now checks and verifies automatically
+    ! Found bug where Redditeur won't get posts on a page with valid posts.
+        This is fixed by restarting the script. Added message for temporary fix
+
+* Redditeur 1.8 - folder full of "memes" *
+    > Changed default subreddit from 'all' to 'aww'
+    > Fixed bug where Redditeur exited early if link 403'd

@@ -4,7 +4,7 @@ Dependencies:
     + WWW::Mechanize (sudo cpan WWW::Mechanize)
 
 Usage:
-    redditeur.pl -s [subreddit] (-n if nsfw) [-d directory]*
+    redditeur.pl -s [subreddit] [-d directory]*
     Use '-h' or '--help' for more information.
 
 * Redditeur will auto create a folder in your current directory and download 
