@@ -1,20 +1,17 @@
 #!/usr/bin/perl
 
-# !!!!!!!!!!!!!!! WHAT IS REDDITEUR? !!!!!!!!!!!!!!!
+#  !!!!!!!!!!!!!!! WHAT IS REDDITEUR? !!!!!!!!!!!!!!!
 
-#    Redditeur takes a subreddit and a folder as
-#  arguments. It downloads every Gfycat link it can
-#   find, then goes to the next page and repeats.
-#      It does this until you stop the script.
+#     Redditeur scrapes a subreddit for every gif
+# it can find, then goes to the next page and repeats.
 
-#  Example usage: redditeur.pl -s aww -d cuteimages
-#   (this downloads from /r/aww into cuteimages/)
+#      It does this until you stop the script or
+#                  run out of pages!
 
-# !!!!!!!!!!!!!!! WHAT IS REDDITEUR? !!!!!!!!!!!!!!!
+#   Example usage: redditeur.pl -s aww -d cuteimages
+#    (this downloads from /r/aww into cuteimages/)
 
-# =============== TODO ===============
-# 1. Add support for imgur and i.redd.it
-# =============== TODO ===============
+#  !!!!!!!!!!!!!!! WHAT IS REDDITEUR? !!!!!!!!!!!!!!!
 
 use strict;
 use warnings;
@@ -23,8 +20,8 @@ use WWW::Mechanize ();
 
 # =============== PKG INFO ===============
 my $pkg_name    = "Redditeur";
-my $pkg_version = "1.9";
-my $pkg_flavor  = "i use arch btw";
+my $pkg_version = "2.0";
+my $pkg_flavor  = "did i mention i use arch";
 
 # =============== INIT VARS ===============
 my $sub = "aww";
@@ -57,7 +54,7 @@ if ($help) {
 
     $pkg_name $pkg_version ($pkg_flavor)
 
-    Downloads every available Gfycat link from any subreddit!
+    Downloads every available gif from any subreddit!
 
     Usage: $0 [-sdh] [-s subreddit] [-d directory]
     
@@ -106,14 +103,17 @@ sub _start {
 
     if ( scalar @links == 0 ) {
         die
-            "Status: No posts found! Try restarting Redditeur if this is an error.\n";
+            "Status: No posts found! Restarting Redditeur should fix this.\n";
     }
 
     foreach my $link (@links) {
         my $url = $link->url_abs;
         if ( $url =~ qr/gfycat/ ) {
             _download_gfycat($url);
-        }
+        } 
+        # elsif ( $url =~ qr/imgur.*(gif|mp4)/ ) {
+        #     _download_imgur($url);
+        # }
     }
 
     print "Status:\tPage complete! Redirecting...\n";
@@ -141,15 +141,14 @@ sub _download_gfycat {
 
     foreach my $found (@found_links) {
         my $download = $found->url_abs;
-        my $file     = $download;
-        $file =~ s[^.+\/][];
+        my $file     = $download;   $file =~ s[^.+\/][];
 
         if ( -e "$path/$file" ) {
             print "Status:\t'$file' exists! Skipping...\n";
             next;
         }
         else {
-            print "Downloading: '$file'!\n";
+            print "Downloading: '$file' [Gfycat]\n";
             $mech->get( $download, ":content_file" => "$path/$file" );
             if ( $mech->status != 200 ) {
                 print "Status:\t'$file' is unavailable! Skipping...\n";

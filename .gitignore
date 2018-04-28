@@ -1,6 +1,7 @@
 # Files
 .DS_STORE
 monthly.pl
+.env
 
 # Directories
 /..workbench/

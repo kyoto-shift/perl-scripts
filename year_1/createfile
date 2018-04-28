@@ -1,0 +1,23 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+unless( $ARGV[0] ) { die "No file specified!\n"; }
+
+if( $ARGV[0] eq "-e" ) {
+    shift @ARGV;
+	foreach( @ARGV ) { _make($_); }
+	print( "Opening first file...\n");
+	exec( "open -e $ARGV[1]" );
+} else {
+	foreach( @ARGV ) { _make($_); }
+}
+
+sub _make {
+	open( DATAFILE, ">", $_ )
+		or die "Can't create file '$_'!\n";
+	close DATAFILE;
+}
+
+# Copyright © 2018 - Judah Caruso Rodriguez (0px.moe)
