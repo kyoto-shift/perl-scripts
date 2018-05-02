@@ -1,0 +1,6 @@
+Lounge is a small logging CLI for small projects, notes, and anything else!
+
+On first run, Lounge will create a "/.lounge" folder in your home directory. 
+This is where your Lounge and your configuration files will be stored.
+
+Use `lounge help` for more information!
