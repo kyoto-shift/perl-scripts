@@ -1,0 +1,98 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+my $day = (localtime)[6];    # current day of week as scalar
+my $task;                    # output of tasks for day 
+my @lines;
+my @monday      = ();
+my @tuesday     = ();
+my @wednesday   = ();
+my @thursday    = ();
+my @friday      = ();
+my @saturday    = ();
+my @sunday      = ();
+
+if ( !@ARGV ) { die ("No file specified!\n"); }
+
+open FILE, "<", $ARGV[0]
+    or die("File '$_' can't be opened!\n");
+while (<FILE>) {
+    chomp( my $t = $_ );
+    if ( $_ =~ /^MO/i ) {
+        $t =~ s/(^.*[:](\s)+?)//;
+        push( @monday, $t );
+    } elsif ( $_ =~ /^TU/i ) {
+        $t =~ s/(^.*[:](\s)+?)//;
+        push( @tuesday, $t );
+    } elsif ( $_ =~ /^WE/i ) {
+        $t =~ s/(^.*[:](\s)+?)//;
+        push( @wednesday, $t );   
+    } elsif ( $_ =~ /^TH/i ) {
+        $t =~ s/(^.*[:](\s)+?)//;
+        push( @thursday, $t );
+    } elsif ( $_ =~ /^FR/i ) {
+        $t =~ s/(^.*[:](\s)+?)//;
+        push( @friday, $t );
+    } elsif ( $_ =~ /^SA/i ) {
+        $t =~ s/(^.*[:](\s)+?)//;
+        push( @saturday, $t );
+    } elsif ( $_ =~ /^SU/i ) {
+        $t =~ s/(^.*[:](\s)+?)//;
+        push( @sunday, $t );
+    } else {
+        next;
+    }
+}
+close FILE;
+
+sub _get_tasks {
+    my $task;
+    if (@_ >= 1) {   
+        foreach (@_) { 
+            $task .= "\t$_\n"; 
+        }
+    } else {
+        $task = "\tNo tasks for today!";
+    }
+    return $task;
+}
+
+sub _show_message {
+    my $title   = $_[0];
+    my $message = $_[1];
+    system("osascript -e 'display dialog \"$message\" with title \"$title\" '");
+    exit;
+}
+
+if ( $day == 1 ) {       # is monday
+    $task = _get_tasks(@monday);
+    _show_message( "Today is Monday", "Task(s):\n$task" );
+}
+elsif ( $day == 2 ) {    # is tuesday
+    $task = _get_tasks(@tuesday);
+    _show_message( "Today is Tuesday", "Task(s):\n$task" );
+}
+elsif ( $day == 3 ) {    # is wednesday
+    $task = _get_tasks(@wednesday);
+    _show_message( "Today is Wednesday", "Task(s):\n$task" );
+}
+elsif ( $day == 4 ) {    # is Thursday
+    $task = _get_tasks(@thursday);
+    _show_message( "Today is Thursday", "Task(s):\n$task" );
+}
+elsif ( $day == 5 ) {    # is friday
+    $task = _get_tasks(@friday);
+    _show_message( "Today is Friday", "Task(s):\n$task" );
+}
+elsif ( $day == 6 ) {    # is saturday
+    $task = _get_tasks(@saturday);
+    _show_message( "Today is Saturday", "Task(s):\n$task" );
+}
+elsif ( $day == 7 ) {    # is sunday
+    $task = _get_tasks(@sunday);
+    _show_message( "Today is Sunday", "Task(s):\n$task" );
+} else {
+    _show_message( "Error!", "Unable to get current day!" );
+}
